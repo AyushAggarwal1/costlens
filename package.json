@@ -1,0 +1,24 @@
+{
+  "name": "opencost-insight",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cost, ownership and optimization dashboard on top of the OpenCost API",
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"node server/index.js\" \"vite --config web/vite.config.js\"",
+    "build": "vite build --config web/vite.config.js",
+    "start": "node server/index.js",
+    "preview": "npm run build && node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "vite": "^6.3.5"
+  }
+}

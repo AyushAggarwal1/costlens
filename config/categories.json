@@ -1,0 +1,26 @@
+{
+  "_doc": "Maps provider service names (as they appear in billing / OpenCost cloudCost 'service') and Kubernetes asset types into our cost categories. Matching is case-insensitive regex, first match wins.",
+  "categories": ["Compute", "Database", "Storage", "Serverless", "Networking", "Identity", "Analytics", "Monitoring", "Security", "Containers", "AI/ML", "Management", "Other"],
+  "services": [
+    { "match": "^(AmazonEC2|Amazon Elastic Compute Cloud.*|Compute Engine|Microsoft.Compute|Virtual Machines|EC2 - Other)$", "category": "Compute" },
+    { "match": "^(AmazonRDS|Amazon Relational Database Service|AmazonDynamoDB|AmazonElastiCache|AmazonDocDB|AmazonNeptune|AmazonRedshift|Cloud SQL|Cloud Spanner|Firestore|Bigtable|Memorystore|Microsoft.Sql|Microsoft.DBforPostgreSQL|Microsoft.DBforMySQL|Microsoft.DocumentDB|Azure Database.*|Cosmos DB|Redis Cache)$", "category": "Database" },
+    { "match": "^(AmazonS3|Amazon Simple Storage Service|AmazonEBS|AmazonEFS|AmazonFSx|AmazonGlacier|Cloud Storage|Persistent Disk|Filestore|Microsoft.Storage|Storage)$", "category": "Storage" },
+    { "match": "^(AWSLambda|AWS Lambda|AmazonAPIGateway|AWS Step Functions|AWSAppSync|Cloud Functions|Cloud Run|Microsoft.Web|Azure Functions|App Service)$", "category": "Serverless" },
+    { "match": "^(AmazonVPC|Amazon Virtual Private Cloud|AmazonCloudFront|AmazonRoute53|AWSELB|Elastic Load Balancing|AWS Direct Connect|AWSGlobalAccelerator|Cloud Load Balancing|Cloud CDN|Cloud DNS|Networking|Microsoft.Network|Virtual Network|Load Balancer|Content Delivery Network)$", "category": "Networking" },
+    { "match": "^(AWSIdentityAndAccessManagement|AmazonCognito|AWS Directory Service|AWSSecretsManager|AWS Key Management Service|awskms|Cloud IAM|Identity Platform|Secret Manager|Cloud KMS|Microsoft.AAD|Azure Active Directory|Microsoft.KeyVault|Key Vault)$", "category": "Identity" },
+    { "match": "^(AmazonAthena|AWSGlue|AmazonKinesis|AmazonEMR|AmazonMSK|AmazonQuickSight|AmazonOpenSearchService|AmazonES|BigQuery|Dataflow|Pub/Sub|Dataproc|Microsoft.Synapse|Microsoft.DataFactory|Event Hubs|HDInsight)$", "category": "Analytics" },
+    { "match": "^(AmazonCloudWatch|AWSXRay|AWSCloudTrail|Cloud Logging|Cloud Monitoring|Stackdriver|Microsoft.OperationalInsights|Log Analytics|Microsoft.Insights|Application Insights)$", "category": "Monitoring" },
+    { "match": "^(AmazonGuardDuty|AWSSecurityHub|AmazonInspector|AWSWAF|AWS Shield|AmazonMacie|Security Command Center|Cloud Armor|Microsoft.Security|Microsoft Defender.*|Sentinel)$", "category": "Security" },
+    { "match": "^(AmazonEKS|Amazon Elastic Container Service for Kubernetes|AmazonECS|AmazonECR|AWSFargate|Kubernetes Engine|Google Kubernetes Engine|Artifact Registry|Microsoft.ContainerService|Azure Kubernetes Service|Container Registry|Kubernetes)$", "category": "Containers" },
+    { "match": "^(AmazonSageMaker|AmazonBedrock|Amazon Bedrock|Vertex AI|AI Platform|Microsoft.CognitiveServices|Azure OpenAI|Machine Learning)$", "category": "AI/ML" },
+    { "match": "^(AWSConfig|AWS Support.*|AWSCloudFormation|AWS Systems Manager|Cloud Deployment Manager|Microsoft.Management|Microsoft.Resources|Advisor)$", "category": "Management" }
+  ],
+  "kubernetesAssetTypes": {
+    "Node": "Compute",
+    "Disk": "Storage",
+    "LoadBalancer": "Networking",
+    "Network": "Networking",
+    "ClusterManagement": "Management",
+    "Cloud": "Other"
+  }
+}

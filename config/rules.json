@@ -1,0 +1,35 @@
+{
+  "_doc": "Thresholds for the optimisation detectors. Costs are extrapolated to 30 days from the queried window.",
+  "hoursPerMonth": 730,
+  "dead": {
+    "maxCpuCores": 0.005,
+    "maxNetworkBytesPerHour": 262144,
+    "minMonthlyCost": 0.05
+  },
+  "oversized": {
+    "minCpuRequestCores": 0.1,
+    "cpuRequestToUsageRatio": 4,
+    "minRamRequestBytes": 268435456,
+    "ramRequestToUsageRatio": 3,
+    "recommendationHeadroom": 1.3,
+    "minRecommendedCpuCores": 0.05,
+    "minRecommendedRamBytes": 67108864,
+    "minMonthlySavings": 0.25
+  },
+  "underProvisioned": {
+    "usageToRequestRatio": 1.5,
+    "minRamUsageBytes": 268435456
+  },
+  "noRequests": {
+    "minMonthlyCost": 0.5
+  },
+  "orphanedStorage": {
+    "minMonthlyCost": 0.01
+  },
+  "schedules": {
+    "_doc": "Expected active hours for workloads. Anything running outside its schedule with usage is flagged as a scale-to-zero candidate. days: 0=Sun..6=Sat, hours in UTC.",
+    "entries": [
+      { "match": { "namespace": "^accuknox-(ai-engine|ai-gateway|llm-runtimescanning)$" }, "days": [1,2,3,4,5], "startHour": 3, "endHour": 15, "label": "Weekdays 09:00-21:00 IST" }
+    ]
+  }
+}

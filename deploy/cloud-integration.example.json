@@ -1,0 +1,51 @@
+{
+  "_doc": "Copy to cloud-integration.json, keep only the providers you use, fill in the values, then: kubectl -n opencost create secret generic cloud-costs --from-file=cloud-integration.json",
+  "aws": [
+    {
+      "athenaBucketName": "s3://<bucket-that-holds-athena-query-results>",
+      "athenaRegion": "<region of the Athena database, e.g. us-east-1>",
+      "athenaDatabase": "<athena database created for the CUR, e.g. athenacurcfn_opencost>",
+      "athenaTable": "<athena table, e.g. opencost_cur>",
+      "athenaWorkgroup": "primary",
+      "projectID": "<12-digit AWS account ID that owns the CUR>",
+      "authorizer": {
+        "authorizerType": "AWSAccessKey",
+        "accessKeyID": "<AKIA...>",
+        "secretAccessKey": "<secret>"
+      }
+    }
+  ],
+  "gcp": [
+    {
+      "projectID": "<gcp-project-id that holds the BigQuery billing export>",
+      "billingDataDataset": "<dataset>.<table, e.g. billing_export.gcp_billing_export_resource_v1_XXXXXX>",
+      "authorizer": {
+        "authorizerType": "GCPServiceAccountKey",
+        "key": {
+          "type": "service_account",
+          "project_id": "...",
+          "private_key_id": "...",
+          "private_key": "...",
+          "client_email": "...",
+          "client_id": "...",
+          "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+          "token_uri": "https://oauth2.googleapis.com/token"
+        }
+      }
+    }
+  ],
+  "azure": [
+    {
+      "subscriptionID": "<subscription id the cost export covers>",
+      "azureStorageAccount": "<storage account that receives the cost export>",
+      "azureStorageContainer": "<container name>",
+      "azureContainerPath": "<optional path prefix inside the container>",
+      "azureCloud": "public",
+      "authorizer": {
+        "authorizerType": "AzureAccessKey",
+        "accessKey": "<storage account access key>",
+        "account": "<storage account name>"
+      }
+    }
+  ]
+}

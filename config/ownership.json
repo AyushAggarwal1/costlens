@@ -1,0 +1,22 @@
+{
+  "_doc": "Ownership mapping. Precedence: workload labels > namespace labels > rules (first match wins) > default. Label keys are matched after normalising '.', '/' and '-' to '_'.",
+  "labelKeys": {
+    "team": ["team", "owner", "accuknox.com/team"],
+    "environment": ["environment", "env", "accuknox.com/env"],
+    "costCenter": ["cost-center", "costcenter", "accuknox.com/cost-center"]
+  },
+  "rules": [
+    { "match": { "namespace": "^accuknox-(ai-engine|ai-gateway|ask-ada|llm-runtimescanning|goose)$" }, "team": "AI Platform", "environment": "staging" },
+    { "match": { "namespace": "^accuknox-(policy-.*|discovered-policy-daemon|cluster-entity-daemon|knoxjobstatus)$" }, "team": "Policy", "environment": "staging" },
+    { "match": { "namespace": "^accuknox-(vuln.*|reporter|saas-reports|soarcast|integration|observability-api|datapipeline-api|data-offloader|dataingestion|deo)$" }, "team": "Security Analytics", "environment": "staging" },
+    { "match": { "namespace": "^accuknox-(postgresql|mongodb|neo4j|minio|ceph|loki|vault|spire)$" }, "team": "Data Infra", "environment": "staging" },
+    { "match": { "namespace": "^accuknox-(ui|knox-gateway|istio-ext-authz|cluster-mgmt|cluster-onboard|divy)$" }, "team": "Core Platform", "environment": "staging" },
+    { "match": { "namespace": "^accuknox-.*" }, "team": "AccuKnox SaaS", "environment": "staging" },
+    { "match": { "namespace": "^(weaviate|rabbitmq|redis|kafka|elasticsearch|opensearch|clickhouse|nats)$" }, "team": "Data Infra", "environment": "staging" },
+    { "match": { "namespace": "^agents$" }, "team": "Agents", "environment": "staging" },
+    { "match": { "namespace": "^(kube-system|cattle-.*|cert-manager|istio-system|kueue-system|prometheus-system|opencost|accuknox-monitoring|local-path-storage|metallb-system)$" }, "team": "Platform Infra", "environment": "shared" },
+    { "match": { "namespace": "^__idle__$" }, "team": "Idle capacity", "environment": "shared" },
+    { "match": { "namespace": "^__unmounted__$" }, "team": "Orphaned storage", "environment": "shared" }
+  ],
+  "default": { "team": "Unassigned", "environment": "unknown" }
+}

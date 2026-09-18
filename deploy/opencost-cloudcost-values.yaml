@@ -1,0 +1,12 @@
+# Helm values that switch on cloud cost ingestion for the existing `opencost` release (chart opencost-2.5.31).
+# Apply with:
+#   helm -n opencost upgrade opencost opencost/opencost --version 2.5.31 --reuse-values -f deploy/opencost-cloudcost-values.yaml
+opencost:
+  cloudCost:
+    enabled: true
+    refreshRateHours: 6      # how often the pipeline pulls new billing data
+    runWindowDays: 3         # days re-queried on every run
+    monthToDateInterval: 6   # every 6th run re-queries the whole month
+    queryWindowDays: 7       # max days per query to the billing backend
+  # Secret in the opencost namespace that holds cloud-integration.json (created with kubectl, see deploy/cloud-integration.example.json)
+  cloudIntegrationSecret: cloud-costs
