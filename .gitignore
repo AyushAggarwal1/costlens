@@ -1,3 +1,5 @@
 node_modules/
 web/dist/
 .env
+deploy/aws.json
+cloud-integration.json
